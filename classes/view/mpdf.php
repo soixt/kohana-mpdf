@@ -20,18 +20,17 @@ class View_MPDF extends View {
 
 		// Render the HTML to a PDF
 
-                $mpdf=new mPDF('UTF-8', 'A4');
+		$mpdf = new mPDF('UTF-8', 'A4');
 
-                $mpdf->SetAutoFont(AUTOFONT_ALL);
 
-                $mpdf->WriteHTML($html);
 
-                return $mpdf->output();
+		$mpdf->WriteHTML($html);
+
+		return $mpdf->output();
 
 	}
 
 } // End View_PDF
 
 // Load DOMPDF configuration, this will prepare DOMPDF
-require_once MODPATH.'mpdf/vendor/mpdf.php';
-?>
+require_once Kohana::find_file('vendor', 'mpdf/mpdf');
