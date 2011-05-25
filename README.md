@@ -1,20 +1,20 @@
-# PDF View
+# mPDF View
 
-Extension for Kohana's View class that renders as a PDF instead of HTML. Uses [MPDF](http://code.google.com/p/dompdf/) to render normal HTML views as PDF Files.
+Extension for Kohana's View class that renders as a PDF instead of HTML. Uses [MPDF](http://www.mpdf1.com/mpdf/) to render normal HTML views as PDF Files.
 
 ## Installation
 
 If your application is a Git repository:
 
-    git submodule add git://github.com/ener/mpdf.git modules/mpdf
-    git submodule update --init
+    git submodule add git://github.com/smgladkovskiy/kohana-mpdf.git modules/mpdf
+    git submodule update --init --recursive
 
 Or clone the the module separately:
 
     cd modules
-    git clone git://github.com/ener/mpdf.git mpdf
+    git clone git://github.com/smgladkovskiy/kohana-mpdf.git mpdf
 
-### Update DOMPDF
+### Update mPDF
 
     cd modules/mpdf
     git submodule update --init
@@ -37,6 +37,4 @@ Placed in a controller action:
     $pdf = View_MPDF::factory('pdf/example');
     
     // Use the PDF as the request response
-    $this->request->response = $pdf;
-
-
+    $this->response->body($pdf);
