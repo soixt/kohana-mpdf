@@ -2,35 +2,10 @@
 /**
  * Render a view as a PDF.
  *
+ * @packge     Kohana-mPDF
  * @author     Woody Gilk <woody.gilk@kohanaphp.com>
+ * @author     Sergei Gladkovskiy <smgladkovskiy@gmail.com>
  * @copyright  (c) 2009 Woody Gilk
  * @license    MIT
  */
-class View_MPDF extends View {
-
-	public static function factory($file = NULL, array $data = NULL)
-	{
-		return new View_MPDF($file, $data);
-	}
-
-	public function render($file = NULL)
-	{
-		// Render the HTML normally
-		$html = parent::render($file);
-
-		// Render the HTML to a PDF
-
-		$mpdf = new mPDF('UTF-8', 'A4');
-
-
-
-		$mpdf->WriteHTML($html);
-
-		return $mpdf->output();
-
-	}
-
-} // End View_PDF
-
-// Load DOMPDF configuration, this will prepare DOMPDF
-require_once Kohana::find_file('vendor', 'mpdf/mpdf');
+class View_mPDF extends View_mPDF_Core {}
