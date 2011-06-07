@@ -17,16 +17,26 @@ abstract class View_mPDF_Core extends View {
 
 	public function render($file = NULL)
 	{
+		return $this->get_mpdf($file)->output();
+	}
+
+	public function download($generated_filename, $view_file = NULL)
+	{
+		$mpdf = $this->get_mpdf($view_file);
+		$mpdf->output($generated_filename, 'D');
+	}
+
+	private function get_mpdf($view_file)
+	{
 		// Render the HTML normally
-		$html = parent::render($file);
+		$html = parent::render($view_file);
 
 		// Render the HTML to a PDF
 		$mpdf = new mPDF('UTF-8', 'A4');
 
 		$mpdf->WriteHTML($html);
 
-		return $mpdf->output();
-
+		return $mpdf;
 	}
 
 } // End View_MPDF
