@@ -26,6 +26,15 @@ abstract class View_mPDF_Core extends View {
 		$mpdf->output($generated_filename, 'D');
 	}
 
+	public function inline($generated_filename, $view_file = NULL)
+	{
+		$mpdf = $this->get_mpdf($view_file);
+		$mpdf->output($generated_filename, 'I');
+		// Necessary to prevent Kohana from overriding the content-type set inside the previous function - we
+		// explictly set it to the correct type here...
+		Request::current()->headers[] = 'Content-type: application/pdf';
+	}
+
 	private function get_mpdf($view_file)
 	{
 		// Render the HTML normally
