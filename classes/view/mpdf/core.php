@@ -17,19 +17,18 @@ abstract class View_mPDF_Core extends View {
 
 	public function render($file = NULL)
 	{
-		return $this->get_mpdf($file)->output();
+		return $this->output_mpdf($this->get_mpdf($file));
 	}
 
 	public function download($generated_filename, $view_file = NULL)
 	{
-		$mpdf = $this->get_mpdf($view_file);
-		$mpdf->output($generated_filename, 'D');
+		$this->output_mpdf($this->get_mpdf($view_file), $generated_filename, 'D');
 	}
 
 	public function inline($generated_filename, $view_file = NULL)
 	{
-		$mpdf = $this->get_mpdf($view_file);
-		$mpdf->output($generated_filename, 'I');
+		$this->output_mpdf($this->get_mpdf($view_file), $generated_filename, 'I');
+
 		// Necessary to prevent Kohana from overriding the content-type set inside the previous function - we
 		// explictly set it to the correct type here...
 		Request::current()->headers[] = 'Content-type: application/pdf';
@@ -40,12 +39,28 @@ abstract class View_mPDF_Core extends View {
 		// Render the HTML normally
 		$html = parent::render($view_file);
 
+		$error_level = error_reporting();
+		error_reporting($error_level ^ E_NOTICE);
+
 		// Render the HTML to a PDF
 		$mpdf = new mPDF('UTF-8', 'A4');
-
 		$mpdf->WriteHTML($html);
 
+		error_reporting($error_level);
+
 		return $mpdf;
+	}
+
+	private function output_mpdf($mpdf, $name = NULL, $dest = NULL)
+	{
+		$error_level = error_reporting();
+		error_reporting($error_level ^ E_NOTICE);
+
+		$output = $mpdf->output($name, $dest);
+
+		error_reporting($error_level);
+
+		return $output;
 	}
 
 } // End View_MPDF
