@@ -6,13 +6,13 @@ Extension for Kohana's View class that renders as a PDF instead of HTML. Uses [M
 
 If your application is a Git repository:
 
-    git submodule add git://github.com/smgladkovskiy/kohana-mpdf.git modules/mpdf
+    git submodule add git://github.com/soixt/kohana-mpdf.git modules/mpdf
     git submodule update --init --recursive
 
 Or clone the the module separately:
 
     cd modules
-    git clone git://github.com/smgladkovskiy/kohana-mpdf.git mpdf
+    git clone git://github.com/soixt/kohana-mpdf.git mpdf
 
 ### Update mPDF
 
